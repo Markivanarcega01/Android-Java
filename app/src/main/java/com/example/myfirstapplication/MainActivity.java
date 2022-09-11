@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> arrayList=new ArrayList<>();
     MainAdapter adapter;
 
+    // MARK IVAN PEPE
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
