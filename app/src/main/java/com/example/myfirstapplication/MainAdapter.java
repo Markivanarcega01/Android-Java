@@ -1,10 +1,8 @@
 package com.example.myfirstapplication;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,6 +36,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     boolean isSelectAll= false;
     ArrayList<String> selectList=new ArrayList<>();
     MainActivity mainActivity;
+
+
 
     //create constructor
     public MainAdapter(Activity activity,ArrayList<String> arrayList,TextView tvEmpty){
@@ -138,6 +138,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                                  case R.id.menu_edit:
                                     //when click on edit
                                     //proceeds to a new screen
+
+                                     /* tandaan mo to pre, sa MainAdapter.java need mong include si view
+                                     tulad netong nasa code, para maidentify kung anong view yung tinutukoy
+                                     kaya siguro hindi natin makuha yung context ng R.id.menu_edit
+
+                                        isa pa mali yung sinasabi mo na MainActivity.startActivity(intent);
+                                        o ewan ko kung ganyan ginawa mo non
+                                        view.getContenxt().startActivitiy(intent) lang tlga sya
+                                      */
+                                     Intent intent = new Intent(view.getContext(), AddSettings.class);
+                                     view.getContext().startActivity(intent);
                             }
                             return true;
                         }
