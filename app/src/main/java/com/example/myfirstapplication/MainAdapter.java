@@ -139,14 +139,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                                     //when click on edit
                                     //proceeds to a new screen
 
-                                     /* tandaan mo to pre, sa MainAdapter.java need mong include si view
-                                     tulad netong nasa code, para maidentify kung anong view yung tinutukoy
-                                     kaya siguro hindi natin makuha yung context ng R.id.menu_edit
-
-                                        isa pa mali yung sinasabi mo na MainActivity.startActivity(intent);
-                                        o ewan ko kung ganyan ginawa mo non
-                                        view.getContenxt().startActivitiy(intent) lang tlga sya
-                                      */
                                      Intent intent = new Intent(view.getContext(), AddSettings.class);
                                      view.getContext().startActivity(intent);
                             }
