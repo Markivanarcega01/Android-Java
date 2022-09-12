@@ -23,6 +23,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -146,7 +148,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                                     //when click on edit
                                     //proceeds to a new screen
 
-                                     Intent intent = new Intent(view.getContext(), AddSettings.class);
+                                     Intent intent = new Intent(view.getContext(), EditSettings.class);
                                      view.getContext().startActivity(intent);
                             }
                             return true;
@@ -186,6 +188,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                 }
             }
         });
+
         //check condition
         if (isSelectAll){
             //when all value selected
@@ -226,6 +229,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         }
         mainViewModel.setText(String.valueOf(selectList.size()));
     }
+
 
     @Override
     public int getItemCount() {

@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvEmpty;
     ArrayList<String> arrayList=new ArrayList<>();
     MainAdapter adapter;
+    FloatingActionButton floatingActionButton;
 
     // MARK IVAN PEPE
 
@@ -29,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView=findViewById(R.id.recycler_view);
         tvEmpty=findViewById(R.id.tv_empty);
+        floatingActionButton=findViewById(R.id.floatingButton);
+
 
         //array values
         arrayList.addAll(Arrays.asList("One","Two","Three","Four","Five",
@@ -40,5 +46,13 @@ public class MainActivity extends AppCompatActivity {
         adapter=new MainAdapter(this, arrayList,tvEmpty);
         //set adapter
         recyclerView.setAdapter(adapter);
+        //add button for input
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(view.getContext(),AddSettings.class);
+                startActivity(intent);
+            }
+        });
     }
 }
