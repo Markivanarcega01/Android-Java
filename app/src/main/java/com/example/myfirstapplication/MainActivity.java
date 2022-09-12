@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("List of Items");
         setContentView(R.layout.activity_main);
 
         recyclerView=findViewById(R.id.recycler_view);
