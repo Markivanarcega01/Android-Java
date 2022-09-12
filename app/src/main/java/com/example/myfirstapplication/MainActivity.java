@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         //set layout manager
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //initialize adapter
-        adapter=new MainAdapter(this, arrayList,tvEmpty);
+        adapter=new MainAdapter(this, arrayList,tvEmpty,floatingActionButton);
         //set adapter
         recyclerView.setAdapter(adapter);
         //add button for input

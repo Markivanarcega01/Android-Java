@@ -38,14 +38,16 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     boolean isSelectAll= false;
     ArrayList<String> selectList=new ArrayList<>();
     MainActivity mainActivity;
+    FloatingActionButton floatingActionButton;
 
 
 
     //create constructor
-    public MainAdapter(Activity activity,ArrayList<String> arrayList,TextView tvEmpty){
+    public MainAdapter(Activity activity,ArrayList<String> arrayList,TextView tvEmpty,FloatingActionButton floatingActionButton){
         this.activity=activity;
         this.arrayList=arrayList;
         this.tvEmpty=tvEmpty;
+        this.floatingActionButton=floatingActionButton;
     }
 
 
@@ -61,7 +63,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.textView.setText(arrayList.get(position));
-
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -92,10 +93,15 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                                 public void onChanged(String s) {
                                     //check condition
                                     //hide edit button if selected items is not equal to 1
-                                    if (selectList.size()>1||selectList.size()==0){
-                                        menu.findItem(R.id.menu_edit).setVisible(false);
-                                    }else{
+                                    if (selectList.size()==1){
                                         menu.findItem(R.id.menu_edit).setVisible(true);
+                                    } else{
+                                        menu.findItem(R.id.menu_edit).setVisible(false);
+                                    }
+                                    if (selectList.size()>0){
+                                        floatingActionButton.hide();
+                                    } else{
+                                        floatingActionButton.show();
                                     }
                                     //when text change
                                     //set text on action mode title
@@ -229,7 +235,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         }
         mainViewModel.setText(String.valueOf(selectList.size()));
     }
-
 
     @Override
     public int getItemCount() {
