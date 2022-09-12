@@ -88,6 +88,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                             mainViewModel.getText().observe((LifecycleOwner) activity, new Observer<String>() {
                                 @Override
                                 public void onChanged(String s) {
+                                    //check condition
+                                    //hide edit button if selected items is not equal to 1
+                                    if (selectList.size()>1||selectList.size()==0){
+                                        menu.findItem(R.id.menu_edit).setVisible(false);
+                                    }else{
+                                        menu.findItem(R.id.menu_edit).setVisible(true);
+                                    }
                                     //when text change
                                     //set text on action mode title
                                     actionMode.setTitle(String.format("%s Selected",s));
