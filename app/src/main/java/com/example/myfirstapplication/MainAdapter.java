@@ -167,6 +167,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                             isEnable=false;
                             isSelectAll=false;
                             selectList.clear();
+                            floatingActionButton.show();
                             notifyDataSetChanged();
                         }
                     };
