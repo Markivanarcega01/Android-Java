@@ -37,7 +37,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     boolean isEnable=false;
     boolean isSelectAll= false;
     ArrayList<String> selectList=new ArrayList<>();
-    MainActivity mainActivity;
     FloatingActionButton floatingActionButton;
 
 
@@ -77,7 +76,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                             MenuInflater menuInflater=actionMode.getMenuInflater();
                             //Inflate menu
                             menuInflater.inflate(R.menu.menu,menu);
-
                             return true;
                         }
 

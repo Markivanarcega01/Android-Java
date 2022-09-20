@@ -19,11 +19,9 @@ public class MainActivity extends AppCompatActivity {
     //Initialize Variable
     RecyclerView recyclerView;
     TextView tvEmpty;
-    ArrayList<String> arrayList=new ArrayList<>();
+    ArrayList<String> arrayList=new ArrayList<>(10);
     MainAdapter adapter;
     FloatingActionButton floatingActionButton;
-
-    // MARK IVAN PEPE
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +35,18 @@ public class MainActivity extends AppCompatActivity {
 
 
         //array values
-        arrayList.addAll(Arrays.asList("One","Two","Three","Four","Five",
-                "Six","Seven","Eight","Nine","Ten","Eleven","Twelve","Thirteen"));
+
+        /*Intent i=getIntent();
+        String name=i.getStringExtra("Name");
+        String price=i.getStringExtra("Price");
+        concat= String.valueOf(index);
+        arrayList.add(concat);
+
+         */
+        arrayList.addAll(Arrays.asList("asd","twtw","asdassd"));
+
+
+
 
         //set layout manager
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
