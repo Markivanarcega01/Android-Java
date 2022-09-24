@@ -13,19 +13,21 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 public class AddSettings extends AppCompatActivity {
-    private EditText editTextName;
-    private EditText editTextPrice;
+    private EditText addTextName;
+    private EditText addTextPrice;
     private Button saveButton;
+    private DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_settings);
-        editTextName=findViewById(R.id.addSettings_Name);
-        editTextPrice=findViewById(R.id.addSettings_Price);
+        databaseHelper=new DatabaseHelper(getApplicationContext());
+        addTextName=findViewById(R.id.addSettings_Name);
+        addTextPrice=findViewById(R.id.addSettings_Price);
         saveButton=findViewById(R.id.addSettings_SaveButton);
 
-        editTextName.addTextChangedListener(saveTextWatcher);
-        editTextPrice.addTextChangedListener(saveTextWatcher);
+        addTextName.addTextChangedListener(saveTextWatcher);
+        addTextPrice.addTextChangedListener(saveTextWatcher);
     }
     private TextWatcher saveTextWatcher = new TextWatcher() {
         @Override
@@ -35,8 +37,8 @@ public class AddSettings extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            String name=editTextName.getText().toString().trim();
-            String price=editTextPrice.getText().toString().trim();
+            String name=addTextName.getText().toString().trim();
+            String price=addTextPrice.getText().toString().trim();
             saveButton.setEnabled(!name.isEmpty()&&!price.isEmpty());
         }
 
@@ -47,12 +49,12 @@ public class AddSettings extends AppCompatActivity {
     };
 
     public void addSettings(View v) {
+        String name=addTextName.getText().toString();
+        int price=Integer.parseInt(addTextPrice.getText().toString());
+        databaseHelper.insertData(new Data(name,price));
         Intent i = new Intent(this, MainActivity.class);
-        String name=editTextName.getText().toString();
-        String price=editTextPrice.getText().toString();
-        i.putExtra("Name", name);
-        i.putExtra("Price", price);
         startActivity(i);
     }
+
 
 }

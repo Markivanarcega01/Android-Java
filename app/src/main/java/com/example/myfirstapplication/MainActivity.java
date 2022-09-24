@@ -36,13 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
         //array values
 
-        /*Intent i=getIntent();
-        String name=i.getStringExtra("Name");
-        String price=i.getStringExtra("Price");
-        concat= String.valueOf(index);
-        arrayList.add(concat);
-
-         */
         arrayList.addAll(Arrays.asList("asd","twtw","asdassd"));
 
 
