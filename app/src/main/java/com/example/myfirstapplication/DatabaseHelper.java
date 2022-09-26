@@ -2,11 +2,14 @@ package com.example.myfirstapplication;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -33,5 +36,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("price",data.getPrice());
         long insert = sqLiteDatabase.insert("items", null, contentValues);
         Log.e(TAG,"insertData: "+insert);
+    }
+    public Cursor readData(){
+        SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
+        String qry="select * from items order by id asc";
+        Cursor cursor=sqLiteDatabase.rawQuery(qry,null);
+        return cursor;
     }
 }

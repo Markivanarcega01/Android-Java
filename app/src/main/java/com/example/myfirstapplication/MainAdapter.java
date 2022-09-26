@@ -19,30 +19,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     Activity activity;
-    ArrayList<String> arrayList;
+    ArrayList<Data> arrayList;
     TextView tvEmpty;
     MainViewModel mainViewModel;
     boolean isEnable=false;
     boolean isSelectAll= false;
-    ArrayList<String> selectList=new ArrayList<>();
+    ArrayList<Data> selectList=new ArrayList<Data>();
     FloatingActionButton floatingActionButton;
 
 
 
     //create constructor
-    public MainAdapter(Activity activity,ArrayList<String> arrayList,TextView tvEmpty,FloatingActionButton floatingActionButton){
+    public MainAdapter(Activity activity, ArrayList<Data> arrayList, TextView tvEmpty, FloatingActionButton floatingActionButton){
         this.activity=activity;
         this.arrayList=arrayList;
         this.tvEmpty=tvEmpty;
@@ -61,7 +58,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textView.setText(arrayList.get(position));
+        holder.textView.setText(arrayList.get(position).getName()+"\n"+"₱"+arrayList.get(position).getPrice());
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -116,7 +113,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                             int id=menuItem.getItemId();
                             switch (id){
                                 case R.id.menu_delete:
-                                    for (String s:selectList){
+                                    for (Data s:selectList){
                                         arrayList.remove(s);
                                     }
                                     if (arrayList.size()==0){
@@ -213,7 +210,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     private void ClickItem(ViewHolder holder) {
         //get selected item value
-        String s=arrayList.get(holder.getAdapterPosition());
+        Data s=arrayList.get(holder.getAdapterPosition());
         //check condition
         if (holder.ivCheckBox.getVisibility()==View.GONE){
             //when item not selected

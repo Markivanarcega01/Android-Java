@@ -9,6 +9,7 @@ public class Data {
         this.price = price;
     }
 
+
     public String getName() {
         return name;
     }
@@ -24,4 +25,5 @@ public class Data {
     public void setPrice(int price) {
         this.price = price;
     }
+
 }
