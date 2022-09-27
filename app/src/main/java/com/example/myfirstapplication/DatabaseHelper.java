@@ -39,7 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public Cursor readData(){
         SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
-        String qry="select * from items order by id asc";
+        String qry="select * from items order by name asc";
         Cursor cursor=sqLiteDatabase.rawQuery(qry,null);
         return cursor;
     }
