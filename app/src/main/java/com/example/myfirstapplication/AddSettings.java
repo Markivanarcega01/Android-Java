@@ -29,6 +29,7 @@ public class AddSettings extends AppCompatActivity {
         addTextName.addTextChangedListener(saveTextWatcher);
         addTextPrice.addTextChangedListener(saveTextWatcher);
     }
+    //Disables the button is EditText is empty
     private TextWatcher saveTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     MainAdapter adapter;
     FloatingActionButton floatingActionButton;
     DatabaseHelper databaseHelper;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         tvEmpty=findViewById(R.id.tv_empty);
         floatingActionButton=findViewById(R.id.floatingButton);
 
+        //displays the data on shopMasterlist.db
         Cursor cursor=new DatabaseHelper(this).readData();
         while(cursor.moveToNext()){
             Data obj=new Data(cursor.getString(1),cursor.getInt(2));

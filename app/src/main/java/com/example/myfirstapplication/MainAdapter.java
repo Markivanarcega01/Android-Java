@@ -1,7 +1,9 @@
 package com.example.myfirstapplication;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,7 +60,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.textView.setText(arrayList.get(position).getName()+"\n"+"₱"+arrayList.get(position).getPrice());
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -148,8 +151,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                                  case R.id.menu_edit:
                                     //when click on edit
                                     //proceeds to a new screen
-
                                      Intent intent = new Intent(view.getContext(), EditSettings.class);
+                                     //select the input from the database
+                                     String name=arrayList.get(position).getName();
+                                     int price=arrayList.get(position).getPrice();
+                                     intent.putExtra("Name",name);
+                                     intent.putExtra("Price",price);
+                                     //opens the next activity
                                      view.getContext().startActivity(intent);
                             }
                             return true;
