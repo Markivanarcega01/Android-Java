@@ -3,8 +3,8 @@ package com.example.myfirstapplication;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +37,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     boolean isSelectAll= false;
     ArrayList<Data> selectList=new ArrayList<Data>();
     FloatingActionButton floatingActionButton;
-
 
 
     //create constructor
@@ -155,8 +153,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                                      //select the input from the database
                                      String name=arrayList.get(position).getName();
                                      int price=arrayList.get(position).getPrice();
+                                     int index=position;
                                      intent.putExtra("Name",name);
                                      intent.putExtra("Price",price);
+                                     intent.putExtra("Index",index);
                                      //opens the next activity
                                      view.getContext().startActivity(intent);
                             }

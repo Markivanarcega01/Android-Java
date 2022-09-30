@@ -2,14 +2,13 @@ package com.example.myfirstapplication;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
-
-import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -39,8 +38,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public Cursor readData(){
         SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
-        String qry="select * from items order by name asc";
+        String qry="select * from items order by id";
         Cursor cursor=sqLiteDatabase.rawQuery(qry,null);
         return cursor;
     }
+    public void updateData(Data data){
+        SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
+        ContentValues contentValues=new ContentValues();
+        contentValues.put("name",data.getName());
+        contentValues.put("price",data.getPrice());
+        int index=data.getIndex();
+        int items = sqLiteDatabase.update("items", contentValues,"id='"+index+"'",null);
+        Log.e(TAG,"updateData: "+items);
+    }
+
 }
