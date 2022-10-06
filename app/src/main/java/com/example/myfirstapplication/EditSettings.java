@@ -19,7 +19,7 @@ public class EditSettings extends AppCompatActivity {
     private EditText editPrice;
     private Button editSave;
     private DatabaseHelper databaseHelper;
-    private int index=1;
+    private int index;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +34,7 @@ public class EditSettings extends AppCompatActivity {
         Intent i=getIntent();
         String name=i.getStringExtra("Name");
         int price=i.getIntExtra("Price",0);
-        index+=i.getIntExtra("Index",0);
+        index=i.getIntExtra("Index",0);
         editName.setText(name);
         editPrice.setText(String.valueOf(price));
     }
@@ -60,6 +60,7 @@ public class EditSettings extends AppCompatActivity {
     public void editSettings(View v) {
         String name=editName.getText().toString();
         int price=Integer.parseInt(editPrice.getText().toString());
+        Log.e("index", String.valueOf(index));
         databaseHelper.updateData(new Data(name,price,index));
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

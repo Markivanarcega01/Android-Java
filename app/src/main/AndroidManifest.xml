@@ -17,12 +17,14 @@
             android:name=".EditSettings"
             android:exported="false"
             android:parentActivityName=".MainActivity"
-            android:label="Edit Settings"/>
+            android:label="Edit Settings"
+            android:noHistory="true"/>
         <activity
             android:name=".AddSettings"
             android:exported="false"
             android:label="Add Settings"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:noHistory="true"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

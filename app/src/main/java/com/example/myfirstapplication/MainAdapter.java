@@ -12,6 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,8 +29,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
+public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> implements Filterable {
     Activity activity;
     ArrayList<Data> arrayList;
     TextView tvEmpty;
@@ -37,6 +43,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     boolean isSelectAll= false;
     ArrayList<Data> selectList=new ArrayList<Data>();
     FloatingActionButton floatingActionButton;
+    private DatabaseHelper databaseHelper;
+    ArrayList<Integer> multipleDelete=new ArrayList<>();
+    List<Data> listed;
 
 
     //create constructor
@@ -45,6 +54,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         this.arrayList=arrayList;
         this.tvEmpty=tvEmpty;
         this.floatingActionButton=floatingActionButton;
+        this.listed=new ArrayList<>(arrayList);
     }
 
 
@@ -114,10 +124,15 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                             int id=menuItem.getItemId();
                             switch (id){
                                 case R.id.menu_delete:
+                                    databaseHelper=new DatabaseHelper(activity.getApplicationContext());
                                     for (Data s:selectList){
+                                        int x=arrayList.get(position).getIndex();
+                                        multipleDelete.add(x);
                                         arrayList.remove(s);
                                     }
-                                    if (arrayList.size()==0){
+                                    String convert=multipleDelete.toString().replace("[","").replace("]","");
+                                    databaseHelper.deleteData(new Data(convert));
+                                    if (arrayList.size()==0) {
                                         //when array list is empty
                                         //visible text view
                                         tvEmpty.setVisibility(view.VISIBLE);
@@ -153,12 +168,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                                      //select the input from the database
                                      String name=arrayList.get(position).getName();
                                      int price=arrayList.get(position).getPrice();
-                                     int index=position;
+                                     int index=arrayList.get(position).getIndex();
                                      intent.putExtra("Name",name);
                                      intent.putExtra("Price",price);
                                      intent.putExtra("Index",index);
                                      //opens the next activity
                                      view.getContext().startActivity(intent);
+
                             }
                             return true;
                         }
@@ -244,6 +260,39 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public int getItemCount() {
         return arrayList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+    Filter filter=new Filter() {
+        //run on background thread
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+
+            List <Data> filteredList= new ArrayList<>();
+
+            if (charSequence.toString().isEmpty()){
+                filteredList.addAll(listed);
+            }else{
+                for(Data item:listed){
+                    if (item.getName().toLowerCase().contains(charSequence.toString())){
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults filterResults=new FilterResults();
+            filterResults.values=filteredList;
+            return filterResults;
+        }
+        //runs on ui thread
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            arrayList.clear();
+            arrayList.addAll((Collection<? extends Data>) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView;

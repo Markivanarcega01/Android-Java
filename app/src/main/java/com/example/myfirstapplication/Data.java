@@ -1,13 +1,25 @@
 package com.example.myfirstapplication;
 
+import java.util.ArrayList;
+
 public class Data {
     private String name;
     private int price;
+    private String deleteList;
     private int index;
 
     public Data(String name, int price) {
         this.name = name;
         this.price = price;
+    }
+    public Data(String name, int price, int index) {
+        this.name = name;
+        this.price = price;
+        this.index = index;
+    }
+
+    public Data(String deleteList) {
+        this.deleteList = deleteList;
     }
 
     public String getName() {
@@ -34,9 +46,15 @@ public class Data {
         this.index = index;
     }
 
-    public Data(String name, int price, int index) {
-        this.name = name;
-        this.price = price;
-        this.index = index;
+    public String getDeleteList() {
+        return deleteList;
     }
+
+    public void setDeleteList(String deleteList) {
+        this.deleteList = deleteList;
+    }
+
+
+
+
 }

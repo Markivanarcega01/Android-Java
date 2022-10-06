@@ -1,6 +1,7 @@
 package com.example.myfirstapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,6 +9,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setTitle("List of Items");
         setContentView(R.layout.activity_main);
         databaseHelper=new DatabaseHelper(getApplicationContext());
@@ -39,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         //displays the data on shopMasterlist.db
         Cursor cursor=new DatabaseHelper(this).readData();
         while(cursor.moveToNext()){
-            Data obj=new Data(cursor.getString(1),cursor.getInt(2));
+            Data obj=new Data(cursor.getString(1),cursor.getInt(2),cursor.getInt(0));
             arrayList.add(obj);
         }
 
@@ -59,5 +63,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    int counter=0;
+    @Override
+    public void onBackPressed() {
+        counter++;
+        if (counter==2) {
+            super.onBackPressed();
+        }
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        MenuItem item=menu.findItem(R.id.action_search);
+        SearchView searchView= (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
 }

@@ -10,6 +10,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "DatabaseHelper";
@@ -51,5 +53,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int items = sqLiteDatabase.update("items", contentValues,"id='"+index+"'",null);
         Log.e(TAG,"updateData: "+items);
     }
-
+    public void deleteData(Data data){
+        SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
+        int items = sqLiteDatabase.delete("items", "id in("+data.getDeleteList()+")", null);
+        Log.e(TAG,"deleteData: "+items);
+    }
 }
