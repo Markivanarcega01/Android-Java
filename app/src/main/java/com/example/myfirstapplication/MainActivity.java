@@ -8,18 +8,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     //Initialize Variable
@@ -45,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
         while(cursor.moveToNext()){
             Data obj=new Data(cursor.getString(1),cursor.getInt(2),cursor.getInt(0));
             arrayList.add(obj);
+        }
+        if (arrayList.size()==0){
+            tvEmpty.setVisibility(View.VISIBLE);
+        }else{
+            tvEmpty.setVisibility(View.GONE);
         }
 
 

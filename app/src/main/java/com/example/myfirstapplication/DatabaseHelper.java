@@ -2,7 +2,6 @@ package com.example.myfirstapplication;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -10,7 +9,6 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -40,7 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public Cursor readData(){
         SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
-        String qry="select * from items order by id";
+        String qry="select * from items order by name asc";
         Cursor cursor=sqLiteDatabase.rawQuery(qry,null);
         return cursor;
     }

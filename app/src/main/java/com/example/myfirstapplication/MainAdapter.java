@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,10 +28,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> implements Filterable {
     Activity activity;
@@ -127,6 +124,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> im
                                     databaseHelper=new DatabaseHelper(activity.getApplicationContext());
                                     for (Data s:selectList){
                                         int x=arrayList.get(position).getIndex();
+                                        listed.remove(s);
                                         multipleDelete.add(x);
                                         arrayList.remove(s);
                                     }
@@ -269,9 +267,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> im
         //run on background thread
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
-
             List <Data> filteredList= new ArrayList<>();
-
             if (charSequence.toString().isEmpty()){
                 filteredList.addAll(listed);
             }else{

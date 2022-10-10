@@ -1,6 +1,5 @@
 package com.example.myfirstapplication;
 
-import java.util.ArrayList;
 
 public class Data {
     private String name;
